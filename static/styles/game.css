@@ -21,8 +21,25 @@
   border: 1px solid black;
 
   font-size: 20px;
+  background-color: mediumaquamarine;
 }
 
 .snake-body {
-  background-color: green;
+  background-color: greenyellow;
+}
+
+.flagged-apple {
+  background-color: red;
+}
+
+.debug-apple {
+  background-color: orange;
+}
+
+@media (max-width: 600px) {
+  .board-tile {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
 }
