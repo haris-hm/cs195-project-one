@@ -15,3 +15,14 @@ export class Direction {
     if (this === Direction.RIGHT) return Direction.LEFT;
   }
 }
+
+export const RELATIVE_COORDS_SURROUNDING_TILE = [
+  [-1, -1],
+  [0, -1],
+  [1, -1],
+  [-1, 0],
+  [1, 0],
+  [-1, 1],
+  [0, 1],
+  [1, 1],
+];
