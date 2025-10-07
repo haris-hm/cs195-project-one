@@ -1,270 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SnakeSweeper - Play</title>
-    <link rel="stylesheet" href="static/styles/game.css" />
-  </head>
-  <body>
-    <div class="board">
-      <div class="board-row" data-pos-y="0">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="1">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="2">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="3">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="4">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="5">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="6">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="7">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="8">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="9">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="10">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="11">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="12">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="13">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-      <div class="board-row" data-pos-y="14">
-        <div class="board-tile" data-pos-x="0"></div>
-        <div class="board-tile" data-pos-x="1"></div>
-        <div class="board-tile" data-pos-x="2"></div>
-        <div class="board-tile" data-pos-x="3"></div>
-        <div class="board-tile" data-pos-x="4"></div>
-        <div class="board-tile" data-pos-x="5"></div>
-        <div class="board-tile" data-pos-x="6"></div>
-        <div class="board-tile" data-pos-x="7"></div>
-        <div class="board-tile" data-pos-x="8"></div>
-        <div class="board-tile" data-pos-x="9"></div>
-        <div class="board-tile" data-pos-x="10"></div>
-        <div class="board-tile" data-pos-x="11"></div>
-        <div class="board-tile" data-pos-x="12"></div>
-        <div class="board-tile" data-pos-x="13"></div>
-        <div class="board-tile" data-pos-x="14"></div>
-      </div>
-    </div>
 
-    <script src="static/js/game.js" type="module"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnakeSweeper - Play</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Titan+One&display=swap');
+  </style>
+  <link rel="stylesheet" href="static/styles/game.css" />
+</head>
+
+<body>
+  <div class="board">
+    <div class="board-row" data-pos-y="0">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="1">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="2">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="3">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="4">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="5">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="6">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="7">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="8">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="9">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="10">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="11">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="12">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="13">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+    <div class="board-row" data-pos-y="14">
+      <div class="board-tile" data-pos-x="0"></div>
+      <div class="board-tile" data-pos-x="1"></div>
+      <div class="board-tile" data-pos-x="2"></div>
+      <div class="board-tile" data-pos-x="3"></div>
+      <div class="board-tile" data-pos-x="4"></div>
+      <div class="board-tile" data-pos-x="5"></div>
+      <div class="board-tile" data-pos-x="6"></div>
+      <div class="board-tile" data-pos-x="7"></div>
+      <div class="board-tile" data-pos-x="8"></div>
+      <div class="board-tile" data-pos-x="9"></div>
+      <div class="board-tile" data-pos-x="10"></div>
+      <div class="board-tile" data-pos-x="11"></div>
+      <div class="board-tile" data-pos-x="12"></div>
+      <div class="board-tile" data-pos-x="13"></div>
+      <div class="board-tile" data-pos-x="14"></div>
+    </div>
+  </div>
+
+  <script src="static/js/game.js" type="module"></script>
+</body>
+
 </html>

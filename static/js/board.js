@@ -168,6 +168,8 @@ export class Board {
     this.gameOver = false;
     this.gameOverReason = "";
 
+    this.inputLocked = false;
+
     const headPositionX = Math.ceil(this.boardTiles.length / 2);
     const headPositionY = Math.ceil(this.boardTiles[0].length / 2);
 
@@ -322,11 +324,13 @@ export class Board {
   }
 
   changeDirection(newDirection) {
+    if (this.inputLocked) return;
     if (
       newDirection !== this.currentDirection.getOpposite() &&
       newDirection !== this.currentDirection
     ) {
       this.currentDirection = newDirection;
+      this.inputLocked = true;
     }
   }
 
@@ -365,6 +369,7 @@ export class Board {
 
   tick() {
     this.updateSnake();
+    this.inputLocked = false;
     return this.gameOver;
   }
 }
