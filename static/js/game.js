@@ -27,6 +27,29 @@ function addKeyListeners(gameBoard) {
         break;
     }
   });
+
+  const upButton = document.getElementById("up-button");
+  const downButton = document.getElementById("down-button");
+  const leftButton = document.getElementById("left-button");
+  const rightButton = document.getElementById("right-button");
+
+  if (upButton && downButton && leftButton && rightButton) {
+    upButton.addEventListener("click", () => {
+      gameBoard.changeDirection(Direction.UP);
+    });
+
+    downButton.addEventListener("click", () => {
+      gameBoard.changeDirection(Direction.DOWN);
+    });
+
+    leftButton.addEventListener("click", () => {
+      gameBoard.changeDirection(Direction.LEFT);
+    });
+
+    rightButton.addEventListener("click", () => {
+      gameBoard.changeDirection(Direction.RIGHT);
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

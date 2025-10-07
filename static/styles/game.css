@@ -59,10 +59,41 @@
   cursor: default;
 }
 
+#mobile-controls {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .board-tile {
     width: 20px;
     height: 20px;
     font-size: 10px;
+  }
+
+  #mobile-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  #mobile-controls-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #mobile-controls button {
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+    font-size: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    font-family: "Titan One", sans-serif;
+    cursor: pointer;
   }
 }

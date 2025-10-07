@@ -63,6 +63,13 @@ export class Snake {
     this.snakeSegments.push(new SnakeSegment(tail.positionX, tail.positionY));
   }
 
+  isOccupyingTile(positionX, positionY) {
+    return this.snakeSegments.some(
+      (segment) =>
+        segment.positionX === positionX && segment.positionY === positionY
+    );
+  }
+
   move(direction) {
     const head = this.getHead();
     let newHeadX = head.positionX;

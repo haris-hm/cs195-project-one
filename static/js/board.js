@@ -1,8 +1,6 @@
 import { Direction, RELATIVE_COORDS_SURROUNDING_TILE } from "./utils.js";
 import { Snake } from "./snake.js";
 
-const TESTING_APPLES = false;
-
 class BoardTile {
   constructor(element, positionX, positionY, hasApple = false) {
     this.positionX = positionX;
@@ -190,6 +188,10 @@ export class Board {
     this.boardTiles.forEach((row) => {
       row.forEach((tile) => {
         tile.element.addEventListener("click", () => {
+          if (this.snake.isOccupyingTile(tile.positionX, tile.positionY)) {
+            return;
+          }
+
           if (tile.flagged) {
             this.removeFlag(tile);
           } else {
