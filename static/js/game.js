@@ -53,8 +53,7 @@ function addKeyListeners(gameBoard) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const gameBoard = new Board();
-
+  const gameBoard = new Board(10, 10);
   addKeyListeners(gameBoard);
 
   const gameLoop = setInterval(() => {

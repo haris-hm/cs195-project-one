@@ -118,7 +118,6 @@ function findOrphanedApple(appleTiles, allTiles) {
     }
   });
 
-  console.log(`Orphaned apples found: ${bestApples.length}`);
   const randomIndex = Math.floor(Math.random() * bestApples.length);
   return bestApples[randomIndex];
 }
@@ -151,12 +150,13 @@ function defineBoardTiles() {
   const startingApple = findOrphanedApple(appleTiles, tiles);
   startingApple.placeFlag();
 
-  return { tiles: tiles, startingApple: startingApple };
+  return { tiles: tiles, startingApple: startingApple, appleCount: appleCount };
 }
 
 export class Board {
-  constructor() {
-    const { tiles, startingApple } = defineBoardTiles();
+  constructor(rows, columns) {
+    this.buildBoardElements(rows, columns);
+    const { tiles, startingApple, appleCount } = defineBoardTiles();
 
     this.boardTiles = tiles;
     this.flaggedTiles = new Map();
@@ -178,16 +178,27 @@ export class Board {
       6
     );
 
+    document.getElementById("apple-count").textContent = String(appleCount);
+
     this.placeFlag(startingApple);
-    this.defineTileClickEvents();
     this.renderSnake();
     this.renderFlags();
   }
 
-  defineTileClickEvents() {
-    this.boardTiles.forEach((row) => {
-      row.forEach((tile) => {
-        tile.element.addEventListener("click", () => {
+  buildBoardElements(rows, cols) {
+    const boardContainer = document.getElementById("board");
+
+    for (let i = 0; i < cols; i++) {
+      const rowElement = document.createElement("div");
+      rowElement.className = "board-row";
+      rowElement.dataset.posY = i;
+      boardContainer.appendChild(rowElement);
+
+      for (let j = 0; j < rows; j++) {
+        const tileElement = document.createElement("div");
+        tileElement.className = "board-tile";
+        tileElement.dataset.posX = j;
+        tileElement.addEventListener("click", () => {
           if (this.snake.isOccupyingTile(tile.positionX, tile.positionY)) {
             return;
           }
@@ -198,8 +209,9 @@ export class Board {
             this.placeFlag(tile);
           }
         });
-      });
-    });
+        rowElement.appendChild(tileElement);
+      }
+    }
   }
 
   getAppleCounts(tile, visited) {

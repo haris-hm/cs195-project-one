@@ -7,7 +7,7 @@
   --brown: #a98467;
 }
 
-.board {
+#board {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,6 +61,13 @@
 
 #mobile-controls {
   display: none;
+}
+
+.score-display {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {
