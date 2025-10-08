@@ -1,11 +1,18 @@
-import {
-  Direction,
-  WinState,
-  RELATIVE_COORDS_SURROUNDING_TILE,
-} from "./utils.js";
+import { Direction, WinState, ADJACENT_TILE_COORDINATES } from "./utils.js";
 import { Snake } from "./snake.js";
 
+/**
+ * Class representing a single tile on the game board.
+ */
 class BoardTile {
+  /**
+   * Constructs a new BoardTile instance.
+   *
+   * @param {HTMLElement} element The div element representing this tile
+   * @param {number} positionX The x position of this tile in the board grid
+   * @param {number} positionY The y position of this tile in the board grid
+   * @param {boolean} hasApple Whether this tile contains an apple
+   */
   constructor(element, positionX, positionY, hasApple = false) {
     this.positionX = positionX;
     this.positionY = positionY;
@@ -17,10 +24,16 @@ class BoardTile {
     this.surroundingApples = null;
   }
 
+  /**
+   * Removes the apple from this tile and updates its state.
+   */
   removeApple() {
     this.hasApple = false;
   }
 
+  /**
+   * Places the snake segment on this tile and updates its state.
+   */
   placeSnake() {
     this.element.classList.add("snake-body");
 
@@ -28,6 +41,9 @@ class BoardTile {
     this.element.textContent = "";
   }
 
+  /**
+   * Removes the snake segment from this tile and updates its state.
+   */
   removeSnake() {
     this.element.classList.remove("snake-body");
 
@@ -42,17 +58,27 @@ class BoardTile {
     }
   }
 
+  /**
+   * Places a flag on this tile and updates its state.
+   */
   placeFlag() {
     this.element.classList.add("flagged-apple");
     this.element.classList.remove("debug-apple");
     this.flagged = true;
   }
 
+  /**
+   * Removes the flag from this tile and updates its state.
+   */
   removeFlag() {
     this.element.classList.remove("flagged-apple");
     this.flagged = false;
   }
 
+  /**
+   * Sets the number of surrounding apples and reveals this tile.
+   * @param {number} count The amount of tiles surrounding this tile that contain apples
+   */
   setSurroundingApples(count) {
     this.surroundingApples = count;
     this.revealed = true;
@@ -60,11 +86,22 @@ class BoardTile {
     this.element.textContent = count > 0 ? String(count) : "";
   }
 
+  /**
+   * Generates a unique key for this tile based on its position on the board.
+   * @returns {string} A unique key representing this tile's position on the board
+   */
   getUniqueKey() {
     return `${this.positionX},${this.positionY}`;
   }
 }
 
+/**
+ * Finds an apple tile that has the fewest surrounding apples, usually an "orphaned" apple.
+ *
+ * @param {BoardTile[]} appleTiles The tiles in the current board that have apples
+ * @param {BoardTile[][]} allTiles A 2D array of all the tiles in the current board
+ * @returns {BoardTile} A random apple tile with the fewest surrounding apples
+ */
 function findOrphanedApple(appleTiles, allTiles) {
   let bestApples = [];
   let bestAppleScore = Infinity;
@@ -75,7 +112,7 @@ function findOrphanedApple(appleTiles, allTiles) {
 
     let surroundingAppleCount = 0;
 
-    for (const coord of RELATIVE_COORDS_SURROUNDING_TILE) {
+    for (const coord of ADJACENT_TILE_COORDINATES) {
       const checkX = appleX + coord[0];
       const checkY = appleY + coord[1];
 
@@ -103,12 +140,18 @@ function findOrphanedApple(appleTiles, allTiles) {
   return bestApples[randomIndex];
 }
 
+/**
+ * Class representing the game board, including tiles, snake, and game state.
+ */
 export class Board {
-  constructor(rows, columns) {
-    const { tiles, startingApple, appleCount } = this.buildBoardElements(
-      rows,
-      columns
-    );
+  /**
+   * Creates a new game board with the specified number of rows and columns.
+   *
+   * @param {number} rows Number of rows in the board
+   * @param {number} columns Number of columns in the board
+   */
+  constructor(size) {
+    const { tiles, startingApple, appleCount } = this.buildBoardElements(size);
 
     this.boardTiles = tiles;
     this.flaggedTiles = new Map();
@@ -118,14 +161,14 @@ export class Board {
     this.winState = WinState.ONGOING;
     this.inputLocked = false;
 
-    const headPositionX = Math.ceil(this.boardTiles.length / 2);
-    const headPositionY = Math.ceil(this.boardTiles[0].length / 2);
+    const headPosition = Math.ceil(size / 2);
+    const startingSnakeLength = Math.max(3, Math.floor(size / 4));
 
     this.snake = new Snake(
-      headPositionX,
-      headPositionY,
-      this.boardTiles.length,
-      6
+      headPosition,
+      headPosition,
+      size,
+      startingSnakeLength
     );
 
     document.getElementById("apple-count").textContent = String(appleCount);
@@ -135,7 +178,16 @@ export class Board {
     this.renderFlags();
   }
 
-  buildBoardElements(rows, cols) {
+  /**
+   * Defines all the board elements in the DOM and initializes the board state.
+   *
+   * @param {number} size The number of rows and columns in the board
+   * @returns {{tiles: BoardTile[][], startingApple: BoardTile, appleCount: number}} An object containing the board initialization data
+   * @returns {BoardTile[][]} tiles: A 2D array of all the tiles in the current board
+   * @returns {BoardTile} startingApple: The apple tile that should be flagged at game start
+   * @returns {number} appleCount: The total number of apples placed on the board
+   */
+  buildBoardElements(size) {
     const boardContainer = document.getElementById("board");
 
     const tiles = [];
@@ -143,21 +195,18 @@ export class Board {
 
     const baseChance = 0.125;
     const scaleFactor = 0.001;
-    const appleChance = Math.min(
-      baseChance + (rows + cols) * scaleFactor,
-      0.25
-    );
-    console.log("Apple chance:", appleChance);
+    const chanceAdjustment = scaleFactor * size * 2;
+    const appleChance = Math.min(baseChance + chanceAdjustment, 0.25);
 
     let appleCount = 0;
 
-    for (let y = 0; y < cols; y++) {
+    for (let y = 0; y < size; y++) {
       const rowElement = document.createElement("div");
       rowElement.className = "board-row";
       rowElement.dataset.posY = y;
       boardContainer.appendChild(rowElement);
 
-      for (let x = 0; x < rows; x++) {
+      for (let x = 0; x < size; x++) {
         const tileElement = document.createElement("div");
 
         tileElement.className = "board-tile";
@@ -204,6 +253,16 @@ export class Board {
     };
   }
 
+  /**
+   * Helper function for flood reveal algorithm.
+   * Counts the number of surrounding apples and identifies new tiles to visit.
+   *
+   * @param {BoardTile} tile The current tile whose surrounding tiles are being checked
+   * @param {Set} visited The set of all tiles which have already been visited
+   * @returns {{surroundingApples: number, newQueue: BoardTile[]}} An object containing the count of surrounding apples and a list of new tiles to visit
+   * @returns {number} surroundingApples: The number of surrounding tiles that contain apples
+   * @returns {BoardTile[]} newQueue: A list of new tiles to visit that do not contain apples and have not been visited yet
+   */
   getAppleCounts(tile, visited) {
     const tileX = tile.positionX;
     const tileY = tile.positionY;
@@ -211,7 +270,7 @@ export class Board {
     let surroundingApples = 0;
     let newQueue = [];
 
-    for (const coord of RELATIVE_COORDS_SURROUNDING_TILE) {
+    for (const coord of ADJACENT_TILE_COORDINATES) {
       const checkX = tileX + coord[0];
       const checkY = tileY + coord[1];
 
@@ -239,6 +298,10 @@ export class Board {
     return { surroundingApples, newQueue };
   }
 
+  /**
+   * Flood reveal algorithm to reveal tiles starting from the given apple tile.
+   * @param {BoardTile} appleTile The tile from which to start the flood reveal
+   */
   startFloodReveal(appleTile) {
     const queue = [];
     const visited = new Set();
@@ -270,6 +333,10 @@ export class Board {
     this.revealedTiles = new Set([...this.revealedTiles, ...newlyRevealed]);
   }
 
+  /**
+   * Checks for collisions between the snake and flagged tiles or itself.
+   * Updates the game state accordingly.
+   */
   checkSnakeCollision() {
     const head = this.snake.getHead();
     const headX = head.positionX;
@@ -293,15 +360,16 @@ export class Board {
       this.growSnake();
     }
 
-    const crossedSnake = this.snake.isIntersectingSegment(headX, headY);
+    const crossedSnake = this.snake.isSnakeCrossed();
 
     if (crossedSnake) {
       this.winState = WinState.LOST_SELF_COLLISION;
     }
-
-    return;
   }
 
+  /**
+   * Renders the snake on the board by updating the relevant tiles.
+   */
   renderSnake() {
     for (const snakeSegment of this.snake.getSegments()) {
       const y = snakeSegment.positionY;
@@ -313,6 +381,9 @@ export class Board {
     }
   }
 
+  /**
+   * Renders all flagged tiles on the board.
+   */
   renderFlags() {
     for (const key of this.flaggedTiles.keys()) {
       const flagTile = this.flaggedTiles.get(key);
@@ -320,18 +391,30 @@ export class Board {
     }
   }
 
+  /**
+   * Places a flag on the specified tile and rerenders all flags.
+   * @param {BoardTile} tile The tile on which to place the flag
+   */
   placeFlag(tile) {
     tile.placeFlag();
     this.flaggedTiles.set(tile.getUniqueKey(), tile);
     this.renderFlags();
   }
 
+  /**
+   * Removes a flag from the specified tile and rerenders all flags.
+   * @param {BoardTile} tile The tile from which to remove the flag
+   */
   removeFlag(tile) {
     tile.removeFlag();
     this.flaggedTiles.delete(tile.getUniqueKey());
     this.renderFlags();
   }
 
+  /**
+   * Sets the new direction for the snake if it is a valid change.
+   * @param {Direction} newDirection The new direction to set for the snake
+   */
   changeDirection(newDirection) {
     if (this.inputLocked) return;
     if (
@@ -343,12 +426,18 @@ export class Board {
     }
   }
 
+  /**
+   * Increases the length of the snake by one segment.
+   */
   growSnake() {
     this.snake.grow();
   }
 
+  /**
+   * Updates the snake's position on the board, checks for collisions, and rerenders the snake.
+   */
   updateSnake() {
-    const { oldTail } = this.snake.move(this.currentDirection);
+    const oldTail = this.snake.move(this.currentDirection);
 
     const tailY = oldTail.positionY;
     const tailX = oldTail.positionX;
@@ -365,18 +454,10 @@ export class Board {
     this.renderSnake();
   }
 
-  randomTestDirection() {
-    const directions = [
-      Direction.UP,
-      Direction.DOWN,
-      Direction.LEFT,
-      Direction.RIGHT,
-    ].filter((dir) => dir !== this.currentDirection.getOpposite());
-
-    const randomIndex = Math.floor(Math.random() * directions.length);
-    return directions[randomIndex];
-  }
-
+  /**
+   * Ticks the game state forward by one step.
+   * @returns {WinState} The current win state of the game after the tick
+   */
   tick() {
     this.updateSnake();
     this.inputLocked = false;

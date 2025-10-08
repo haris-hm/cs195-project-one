@@ -1,6 +1,10 @@
 import { Board } from "./board.js";
 import { Direction, WinState } from "./utils.js";
 
+/**
+ * Adds keyboard and button listeners to control the snake.
+ * @param {Board} gameBoard The game board to add listeners for
+ */
 function addKeyListeners(gameBoard) {
   document.addEventListener("keydown", (event) => {
     let keyPressed = event.key.toUpperCase();
@@ -28,6 +32,7 @@ function addKeyListeners(gameBoard) {
     }
   });
 
+  // Mobile controls
   const upButton = document.getElementById("up-button");
   const downButton = document.getElementById("down-button");
   const leftButton = document.getElementById("left-button");
@@ -58,9 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const gameLoop = setInterval(() => {
     const winState = gameBoard.tick();
+
     if (winState !== WinState.ONGOING) {
       clearInterval(gameLoop);
-      alert("Game Over!");
+      alert(`Game Over!\n${winState.reason}`);
     }
   }, 200);
 });

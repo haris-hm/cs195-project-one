@@ -1,3 +1,6 @@
+/**
+ * Represents a direction in which the snake can move.
+ */
 export class Direction {
   static UP = new Direction(-1);
   static DOWN = new Direction(1);
@@ -8,6 +11,10 @@ export class Direction {
     this.value = value;
   }
 
+  /**
+   * Gets the opposite direction.
+   * @returns {Direction} The opposite direction
+   */
   getOpposite() {
     if (this === Direction.UP) return Direction.DOWN;
     if (this === Direction.DOWN) return Direction.UP;
@@ -16,6 +23,9 @@ export class Direction {
   }
 }
 
+/**
+ * Represents the state of the game in terms of winning or losing.
+ */
 export class WinState {
   static ONGOING = new WinState("");
 
@@ -33,7 +43,11 @@ export class WinState {
   }
 }
 
-export const RELATIVE_COORDS_SURROUNDING_TILE = [
+/**
+ * Relative coordinates for the 8 tiles surrounding a given tile.
+ * Each pair represents the (dx, dy) offset from the center tile.
+ */
+export const ADJACENT_TILE_COORDINATES = [
   [-1, -1],
   [0, -1],
   [1, -1],
