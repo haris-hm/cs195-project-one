@@ -1,4 +1,8 @@
-import { Direction, RELATIVE_COORDS_SURROUNDING_TILE } from "./utils.js";
+import {
+  Direction,
+  WinState,
+  RELATIVE_COORDS_SURROUNDING_TILE,
+} from "./utils.js";
 import { Snake } from "./snake.js";
 
 class BoardTile {
@@ -11,45 +15,30 @@ class BoardTile {
     this.flagged = false;
 
     this.surroundingApples = null;
-
-    // TODO: Remove this debug class
-    // if (this.hasApple) {
-    //   this.element.classList.add("debug-apple");
-    // }
   }
 
   removeApple() {
     this.hasApple = false;
-    // this.element.classList.remove("debug-apple");
   }
 
   placeSnake() {
     this.element.classList.add("snake-body");
 
-    this.element.classList.remove(
-      "flagged-apple",
-      "debug-apple",
-      "revealed-tile"
-    );
+    this.element.classList.remove("flagged-apple", "revealed-tile");
     this.element.textContent = "";
   }
 
   removeSnake() {
     this.element.classList.remove("snake-body");
 
-    if (this.hasApple) {
-      // this.element.classList.add("debug-apple");
-    }
     if (this.flagged) {
       this.element.classList.add("flagged-apple");
     }
 
-    if (this.surroundingApples === 0) {
+    if (this.revealed) {
       this.element.classList.add("revealed-tile");
-    } else if (this.surroundingApples > 0) {
-      this.element.textContent = String(this.surroundingApples);
-    } else {
-      this.element.textContent = "";
+      this.element.textContent =
+        this.surroundingApples > 0 ? String(this.surroundingApples) : "";
     }
   }
 
@@ -61,22 +50,14 @@ class BoardTile {
 
   removeFlag() {
     this.element.classList.remove("flagged-apple");
-    if (this.hasApple) {
-      // this.element.classList.add("debug-apple");
-    }
     this.flagged = false;
   }
 
   setSurroundingApples(count) {
     this.surroundingApples = count;
     this.revealed = true;
-
-    if (count > 0) {
-      this.element.textContent = String(count);
-    } else if (count === 0) {
-      this.element.classList.add("revealed-tile");
-      this.element.textContent = "";
-    }
+    this.element.classList.add("revealed-tile");
+    this.element.textContent = count > 0 ? String(count) : "";
   }
 
   getUniqueKey() {
@@ -122,50 +103,19 @@ function findOrphanedApple(appleTiles, allTiles) {
   return bestApples[randomIndex];
 }
 
-function defineBoardTiles() {
-  const tiles = [];
-  const appleTiles = [];
-
-  const appleChance = 0.15;
-  let appleCount = 0;
-
-  document.querySelectorAll(".board-row").forEach((rowElement, y) => {
-    rowElement.querySelectorAll(".board-tile").forEach((tileElement, x) => {
-      if (tiles[y] === undefined) {
-        tiles[y] = [];
-      }
-
-      const hasApple = Math.random() < appleChance;
-      const boardTile = new BoardTile(tileElement, x, y, hasApple);
-
-      if (hasApple) {
-        appleCount += 1;
-        appleTiles.push(boardTile);
-      }
-
-      tiles[y].push(boardTile);
-    });
-  });
-
-  const startingApple = findOrphanedApple(appleTiles, tiles);
-  startingApple.placeFlag();
-
-  return { tiles: tiles, startingApple: startingApple, appleCount: appleCount };
-}
-
 export class Board {
   constructor(rows, columns) {
-    this.buildBoardElements(rows, columns);
-    const { tiles, startingApple, appleCount } = defineBoardTiles();
+    const { tiles, startingApple, appleCount } = this.buildBoardElements(
+      rows,
+      columns
+    );
 
     this.boardTiles = tiles;
     this.flaggedTiles = new Map();
     this.revealedTiles = new Set();
     this.currentDirection = Direction.RIGHT;
 
-    this.gameOver = false;
-    this.gameOverReason = "";
-
+    this.winState = WinState.ONGOING;
     this.inputLocked = false;
 
     const headPositionX = Math.ceil(this.boardTiles.length / 2);
@@ -188,30 +138,70 @@ export class Board {
   buildBoardElements(rows, cols) {
     const boardContainer = document.getElementById("board");
 
-    for (let i = 0; i < cols; i++) {
+    const tiles = [];
+    const appleTiles = [];
+
+    const baseChance = 0.125;
+    const scaleFactor = 0.001;
+    const appleChance = Math.min(
+      baseChance + (rows + cols) * scaleFactor,
+      0.25
+    );
+    console.log("Apple chance:", appleChance);
+
+    let appleCount = 0;
+
+    for (let y = 0; y < cols; y++) {
       const rowElement = document.createElement("div");
       rowElement.className = "board-row";
-      rowElement.dataset.posY = i;
+      rowElement.dataset.posY = y;
       boardContainer.appendChild(rowElement);
 
-      for (let j = 0; j < rows; j++) {
+      for (let x = 0; x < rows; x++) {
         const tileElement = document.createElement("div");
+
         tileElement.className = "board-tile";
-        tileElement.dataset.posX = j;
+        tileElement.dataset.posX = x;
+        rowElement.appendChild(tileElement);
+
+        if (tiles[y] === undefined) {
+          tiles[y] = [];
+        }
+
+        const hasApple = Math.random() < appleChance;
+        const boardTile = new BoardTile(tileElement, x, y, hasApple);
+
+        if (hasApple) {
+          appleCount += 1;
+          appleTiles.push(boardTile);
+        }
+
+        tiles[y].push(boardTile);
+
         tileElement.addEventListener("click", () => {
-          if (this.snake.isOccupyingTile(tile.positionX, tile.positionY)) {
+          if (
+            this.snake.isOccupyingTile(boardTile.positionX, boardTile.positionY)
+          ) {
             return;
           }
 
-          if (tile.flagged) {
-            this.removeFlag(tile);
+          if (boardTile.flagged) {
+            this.removeFlag(boardTile);
           } else {
-            this.placeFlag(tile);
+            this.placeFlag(boardTile);
           }
         });
-        rowElement.appendChild(tileElement);
       }
     }
+
+    const startingApple = findOrphanedApple(appleTiles, tiles);
+    startingApple.placeFlag();
+
+    return {
+      tiles: tiles,
+      startingApple: startingApple,
+      appleCount: appleCount,
+    };
   }
 
   getAppleCounts(tile, visited) {
@@ -292,9 +282,8 @@ export class Board {
 
     if (intersectingFlaggedTile) {
       if (!intersectingFlaggedTile.hasApple) {
-        this.gameOver = true;
-        this.gameOverReason = "Flagged empty tile";
-        return true;
+        this.winState = WinState.LOST_FLAG_MISMATCH;
+        return;
       }
 
       intersectingFlaggedTile.removeApple();
@@ -304,7 +293,13 @@ export class Board {
       this.growSnake();
     }
 
-    return this.snake.isIntersectingSegment(headX, headY);
+    const crossedSnake = this.snake.isIntersectingSegment(headX, headY);
+
+    if (crossedSnake) {
+      this.winState = WinState.LOST_SELF_COLLISION;
+    }
+
+    return;
   }
 
   renderSnake() {
@@ -353,13 +348,14 @@ export class Board {
   }
 
   updateSnake() {
-    const { newHead, oldTail } = this.snake.move(this.currentDirection);
+    const { oldTail } = this.snake.move(this.currentDirection);
 
     const tailY = oldTail.positionY;
     const tailX = oldTail.positionX;
 
-    this.gameOver = this.checkSnakeCollision();
-    if (this.gameOver) {
+    this.checkSnakeCollision();
+
+    if (this.winState !== WinState.ONGOING) {
       return;
     }
 
@@ -384,6 +380,6 @@ export class Board {
   tick() {
     this.updateSnake();
     this.inputLocked = false;
-    return this.gameOver;
+    return this.winState;
   }
 }

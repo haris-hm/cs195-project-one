@@ -1,5 +1,5 @@
 import { Board } from "./board.js";
-import { Direction } from "./utils.js";
+import { Direction, WinState } from "./utils.js";
 
 function addKeyListeners(gameBoard) {
   document.addEventListener("keydown", (event) => {
@@ -53,12 +53,12 @@ function addKeyListeners(gameBoard) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const gameBoard = new Board(10, 10);
+  const gameBoard = new Board(16, 16);
   addKeyListeners(gameBoard);
 
   const gameLoop = setInterval(() => {
-    const gameOver = gameBoard.tick();
-    if (gameOver) {
+    const winState = gameBoard.tick();
+    if (winState !== WinState.ONGOING) {
       clearInterval(gameLoop);
       alert("Game Over!");
     }
