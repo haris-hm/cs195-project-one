@@ -1,4 +1,157 @@
+:root {
+  --primary-color: #386641;
+  --secondary-color: #6a994e;
+  --tertiary-color: #a7c957;
+  --accent-color: #bc4749;
+  --light-color: #ede0bf;
+  --dark-color: #001219;
+  --brown: #a98467;
+}
+
 body {
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--light-color);
+
+  font-family: "Titan One", sans-serif;
+  color: var(--dark-color);
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+#board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.board-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select: none;
+  cursor: pointer;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--dark-color);
+
+  font-family: "Titan One", sans-serif;
+  font-style: normal;
+  font-size: 2rem;
+  color: var(--light-color);
+
+  background-color: var(--tertiary-color);
+}
+
+.snake-body {
+  background-color: var(--primary-color);
+  cursor: default;
+}
+
+.flagged-apple {
+  background-color: var(--accent-color);
+}
+
+.debug-apple {
+  background-color: orange;
+}
+
+.revealed-tile {
+  background-color: var(--brown);
+  cursor: default;
+}
+
+#mobile-controls {
+  display: none;
+}
+
+.score-display {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.score-display p {
+  font-family: "Titan One", sans-serif;
+  font-size: 2.5rem;
+}
+
+@media (max-width: 1280px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .board-tile {
+    width: 30px;
+    height: 30px;
+    font-size: 1.4rem;
+  }
+
+  .score-display p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .board-tile {
+    width: 25px;
+    height: 25px;
+    font-size: 1.5rem;
+  }
+
+  .score-display {
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    width: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-tile {
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+  }
+
+  #mobile-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  #mobile-controls-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #mobile-controls button {
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+    font-size: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    font-family: "Titan One", sans-serif;
+    cursor: pointer;
+  }
 }

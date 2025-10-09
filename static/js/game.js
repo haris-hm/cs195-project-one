@@ -57,8 +57,24 @@ function addKeyListeners(gameBoard) {
   }
 }
 
+function getGameDifficulty() {
+  const selectedDifficulty = window.localStorage.getItem("selectedDifficulty");
+  console.log("Selected Difficulty:", selectedDifficulty);
+  switch (selectedDifficulty) {
+    case "easy":
+      return 10;
+    case "normal":
+      return 16;
+    case "hard":
+      return 24;
+    default:
+      return 16;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  const gameBoard = new Board(16, 16);
+  const boardSize = getGameDifficulty();
+  const gameBoard = new Board(boardSize);
   addKeyListeners(gameBoard);
 
   const gameLoop = setInterval(() => {

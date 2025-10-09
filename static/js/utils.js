@@ -43,6 +43,14 @@ export class WinState {
   }
 }
 
+export function playRandomSoundEffect(soundType, variationAmount = 3) {
+  const variationSelected = Math.floor(Math.random() * variationAmount) + 1;
+  const filePath = `static/sounds/${soundType}/${variationSelected}.ogg`;
+  const audio = new Audio(filePath);
+  audio.volume = 0.2;
+  audio.play();
+}
+
 /**
  * Relative coordinates for the 8 tiles surrounding a given tile.
  * Each pair represents the (dx, dy) offset from the center tile.

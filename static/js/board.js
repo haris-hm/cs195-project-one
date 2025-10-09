@@ -1,4 +1,9 @@
-import { Direction, WinState, ADJACENT_TILE_COORDINATES } from "./utils.js";
+import {
+  Direction,
+  WinState,
+  playRandomSoundEffect,
+  ADJACENT_TILE_COORDINATES,
+} from "./utils.js";
 import { Snake } from "./snake.js";
 
 /**
@@ -158,6 +163,9 @@ export class Board {
     this.revealedTiles = new Set();
     this.currentDirection = Direction.RIGHT;
 
+    this.appleCount = appleCount;
+    this.score = 0;
+
     this.winState = WinState.ONGOING;
     this.inputLocked = false;
 
@@ -171,7 +179,9 @@ export class Board {
       startingSnakeLength
     );
 
-    document.getElementById("apple-count").textContent = String(appleCount);
+    document.getElementById("apple-count").textContent = String(
+      this.appleCount
+    );
 
     this.placeFlag(startingApple);
     this.renderSnake();
@@ -229,15 +239,19 @@ export class Board {
 
         tileElement.addEventListener("click", () => {
           if (
-            this.snake.isOccupyingTile(boardTile.positionX, boardTile.positionY)
+            this.snake.isOccupyingTile(
+              boardTile.positionX,
+              boardTile.positionY
+            ) ||
+            boardTile.revealed
           ) {
             return;
           }
 
           if (boardTile.flagged) {
-            this.removeFlag(boardTile);
+            this.removeFlag(boardTile, true);
           } else {
-            this.placeFlag(boardTile);
+            this.placeFlag(boardTile, true);
           }
         });
       }
@@ -290,7 +304,11 @@ export class Board {
 
       if (checkTile.hasApple) {
         surroundingApples++;
-      } else if (!visited.has(checkKey) && !checkTile.hasApple) {
+      } else {
+        this.removeFlag(checkTile);
+      }
+
+      if (!visited.has(checkKey) && !checkTile.hasApple) {
         newQueue.push(checkTile);
       }
     }
@@ -333,6 +351,33 @@ export class Board {
     this.revealedTiles = new Set([...this.revealedTiles, ...newlyRevealed]);
   }
 
+  eatApple(tile) {
+    if (!tile.hasApple) {
+      this.winState = WinState.LOST_FLAG_MISMATCH;
+      return false;
+    }
+
+    tile.removeApple();
+    this.appleCount--;
+    this.score++;
+
+    if (this.score % 5 === 0) {
+      playRandomSoundEffect("score-indicator", 2);
+    } else {
+      playRandomSoundEffect("eat", 6);
+    }
+
+    document.getElementById("apple-count").textContent = String(
+      this.appleCount
+    );
+    document.getElementById("score").textContent = String(this.score);
+
+    this.removeFlag(tile);
+    this.startFloodReveal(tile);
+    this.growSnake();
+    return true;
+  }
+
   /**
    * Checks for collisions between the snake and flagged tiles or itself.
    * Updates the game state accordingly.
@@ -348,16 +393,10 @@ export class Board {
     );
 
     if (intersectingFlaggedTile) {
-      if (!intersectingFlaggedTile.hasApple) {
-        this.winState = WinState.LOST_FLAG_MISMATCH;
+      const ateApple = this.eatApple(headTile);
+      if (!ateApple) {
         return;
       }
-
-      intersectingFlaggedTile.removeApple();
-
-      this.removeFlag(intersectingFlaggedTile);
-      this.startFloodReveal(intersectingFlaggedTile);
-      this.growSnake();
     }
 
     const crossedSnake = this.snake.isSnakeCrossed();
@@ -394,8 +433,10 @@ export class Board {
   /**
    * Places a flag on the specified tile and rerenders all flags.
    * @param {BoardTile} tile The tile on which to place the flag
+   * @param {boolean} userClicked Whether the flag placement was initiated by a user click
    */
-  placeFlag(tile) {
+  placeFlag(tile, userClicked = true) {
+    if (userClicked) playRandomSoundEffect("flag", 5);
     tile.placeFlag();
     this.flaggedTiles.set(tile.getUniqueKey(), tile);
     this.renderFlags();
@@ -404,8 +445,10 @@ export class Board {
   /**
    * Removes a flag from the specified tile and rerenders all flags.
    * @param {BoardTile} tile The tile from which to remove the flag
+   * @param {boolean} userClicked Whether the flag removal was initiated by a user click
    */
-  removeFlag(tile) {
+  removeFlag(tile, userClicked = false) {
+    if (userClicked) playRandomSoundEffect("flag", 5);
     tile.removeFlag();
     this.flaggedTiles.delete(tile.getUniqueKey());
     this.renderFlags();

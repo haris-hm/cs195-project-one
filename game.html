@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SnakeSweeper - Play</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Titan+One&display=swap");
-    </style>
-    <link rel="stylesheet" href="static/styles/game.css" />
-  </head>
 
-  <body>
-    <h1>SnakeSweeper</h1>
-    <div id="board"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnakeSweeper - Play</title>
 
-    <div class="score-display">
-      <p>Apples on Board: <span id="apple-count">0</span></p>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,820;1,820&family=Titan+One&display=swap"
+    rel="stylesheet">
 
-      <p>Score: <span id="score">0</span></p>
+
+  <link rel="stylesheet" href="static/styles/styles.css" />
+</head>
+
+<body>
+  <h1>SnakeSweeper</h1>
+
+  <div id="board"></div>
+
+  <div class="score-display">
+    <p>Apples on Board: <span id="apple-count">0</span></p>
+    <p>Score: <span id="score">0</span></p>
+  </div>
+
+  <div id="mobile-controls">
+    <button id="up-button">⬆️</button>
+    <div id="mobile-control-row">
+      <button id="left-button">⬅️</button>
+      <button id="down-button">⬇️</button>
+      <button id="right-button">➡️</button>
     </div>
+  </div>
 
-    <div id="mobile-controls">
-      <button id="up-button">⬆️</button>
-      <div id="mobile-control-row">
-        <button id="left-button">⬅️</button>
-        <button id="down-button">⬇️</button>
-        <button id="right-button">➡️</button>
-      </div>
-    </div>
+  <script src="static/js/game.js" type="module"></script>
+</body>
 
-    <script src="static/js/game.js" type="module"></script>
-  </body>
 </html>
