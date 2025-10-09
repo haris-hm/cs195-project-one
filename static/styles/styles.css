@@ -57,6 +57,11 @@ button:active {
 /* Game Settings */
 .info {
   width: 50%;
+  padding: 1rem;
+
+  border: 2px solid var(--dark-color);
+  border-radius: 1rem;
+
   text-align: center;
 }
 
@@ -177,8 +182,10 @@ button:active {
 .score-display {
   display: flex;
   flex-direction: row;
-  width: 50%;
   justify-content: space-around;
+
+  width: 50%;
+  user-select: none;
 }
 
 .score-display p {
@@ -202,8 +209,8 @@ button:active {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 
-  width: 25%;
-  height: 35%;
+  width: 35%;
+  height: 55%;
 
   padding: 1rem;
 
@@ -212,6 +219,8 @@ button:active {
   border-radius: 1rem;
 
   color: var(--light-color);
+  text-align: center;
+  user-select: none;
 
   z-index: 1000;
 }
@@ -223,12 +232,33 @@ button:active {
 
 .game-over-overlay p {
   font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.game-over-overlay button {
+  height: 4rem;
+  width: 75%;
+  margin-bottom: 0.25rem;
+}
+
+#new-game-button {
+  background-color: var(--accent-color);
+}
+
+#new-game-button:hover {
+  filter: brightness(75%);
+}
+
+#new-game-button:active {
+  filter: brightness(125%);
 }
 
 .board-game-over {
   filter: blur(4px);
+}
+
+.board-game-over .board-tile {
+  pointer-events: none;
 }
 
 /* Hide Mobile Controls by Default */
@@ -241,8 +271,6 @@ button:active {
   h1 {
     font-size: 2.5rem;
   }
-
-  /* Board Tiles */
 
   /* Score Display */
   .score-display p {
@@ -286,7 +314,6 @@ button:active {
   /* Game Over Overlay */
   .game-over-overlay {
     width: 45%;
-    height: 35%;
   }
 }
 
@@ -340,7 +367,6 @@ button:active {
   /* Game Over Overlay */
   .game-over-overlay {
     width: 75%;
-    height: 35%;
   }
 
   /* Controls */

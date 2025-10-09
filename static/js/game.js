@@ -59,7 +59,6 @@ function addKeyListeners(gameBoard) {
 
 function getGameDifficulty() {
   const selectedDifficulty = window.localStorage.getItem("selectedDifficulty");
-  console.log("Selected Difficulty:", selectedDifficulty);
   switch (selectedDifficulty) {
     case "easy":
       return 10;
@@ -72,15 +71,21 @@ function getGameDifficulty() {
   }
 }
 
-function showGameOverOverlay(title, message) {
+function showGameOverOverlay(title, message, applesCollectedPercent) {
   const overlay = document.getElementById("game-over-overlay");
   const overlayTitle = document.getElementById("game-over-title");
   const overlayMessage = document.getElementById("game-over-message");
+  const applesCollectedPercentage = document.getElementById(
+    "apples-collected-percentage"
+  );
   const boardElement = document.getElementById("board");
 
-  if (overlay && overlayTitle && overlayMessage) {
+  if (overlay && overlayTitle && overlayMessage && applesCollectedPercentage) {
     overlayTitle.textContent = title;
     overlayMessage.textContent = message;
+    applesCollectedPercentage.textContent = `Apples Collected: ${
+      applesCollectedPercent * 100
+    }%`;
   }
 
   overlay.classList.remove("hidden");
@@ -94,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
   addKeyListeners(gameBoard);
 
   const gameLoop = setInterval(() => {
-    const winState = gameBoard.tick();
+    const { winState, score, remainingApples } = gameBoard.tick();
+    const applesCollectedPercent = (score / remainingApples).toFixed(2);
 
     if (winState !== WinState.ONGOING) {
       clearInterval(gameLoop);
@@ -107,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const title =
         winState === WinState.WIN_ALL_APPLES ? "You Win!" : "Game Over";
-      showGameOverOverlay(title, winState.reason);
+      showGameOverOverlay(title, winState.reason, applesCollectedPercent);
     }
   }, 200);
 });

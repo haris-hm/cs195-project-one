@@ -240,6 +240,10 @@ export class Board {
         tiles[y].push(boardTile);
 
         tileElement.addEventListener("click", () => {
+          if (this.winState !== WinState.ONGOING) {
+            return;
+          }
+
           if (
             this.snake.isOccupyingTile(
               boardTile.positionX,
@@ -504,6 +508,14 @@ export class Board {
     this.renderSnake();
   }
 
+  getCurrentGameState() {
+    return {
+      winState: this.winState,
+      score: this.score,
+      remainingApples: this.appleCount,
+    };
+  }
+
   /**
    * Ticks the game state forward by one step.
    * @returns {WinState} The current win state of the game after the tick
@@ -511,6 +523,6 @@ export class Board {
   tick() {
     this.updateSnake();
     this.inputLocked = false;
-    return this.winState;
+    return this.getCurrentGameState();
   }
 }
