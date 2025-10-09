@@ -5,6 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SnakeSweeper</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="./static/styles/styles.css" />
 </head>
 
@@ -12,13 +17,15 @@
   <div class="menu">
     <h1>SnakeSweeper</h1>
 
-    <form id="game-settings">
-      <label for="difficulty">difficulty:</label>
-      <select name="difficulty" id="difficulty">
-        <option value="easy">Easy (10x10)</option>
-        <option value="normal">Normal (16x16)</option>
-        <option value="hard">Hard (24x24)</option>
-      </select>
+    <form id="game-settings" class="settings-container">
+      <div class="settings-row">
+        <label for="difficulty">Difficulty:</label>
+        <select name="difficulty" id="difficulty">
+          <option value="easy">Easy (10x10)</option>
+          <option value="normal" selected>Normal (16x16)</option>
+          <option value="hard">Hard (24x24)</option>
+        </select>
+      </div>
       <button type="submit">Start Game</button>
     </form>
   </div>

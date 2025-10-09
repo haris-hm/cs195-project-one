@@ -208,6 +208,8 @@ export class Board {
     const chanceAdjustment = scaleFactor * size * 2;
     const appleChance = Math.min(baseChance + chanceAdjustment, 0.25);
 
+    const sizeClass = size <= 15 ? "large" : size <= 16 ? "medium" : "small";
+
     let appleCount = 0;
 
     for (let y = 0; y < size; y++) {
@@ -219,7 +221,7 @@ export class Board {
       for (let x = 0; x < size; x++) {
         const tileElement = document.createElement("div");
 
-        tileElement.className = "board-tile";
+        tileElement.classList.add("board-tile", sizeClass);
         tileElement.dataset.posX = x;
         rowElement.appendChild(tileElement);
 

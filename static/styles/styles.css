@@ -4,10 +4,11 @@
   --tertiary-color: #a7c957;
   --accent-color: #bc4749;
   --light-color: #ede0bf;
-  --dark-color: #001219;
+  --dark-color: #14213d;
   --brown: #a98467;
 }
 
+/* Global Styling */
 body {
   display: flex;
   flex-direction: column;
@@ -23,6 +24,52 @@ h1 {
   font-size: 3rem;
 }
 
+button {
+  font-family: "Titan One", sans-serif;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+  box-shadow: var(--dark-color) 0px 4px 8px;
+}
+
+button:active {
+  transform: scale(0.95);
+  background-color: var(--tertiary-color);
+}
+
+/* Game Settings */
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+}
+
+.settings-row label {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+/* Board Styling */
 #board {
   display: flex;
   flex-direction: column;
@@ -43,9 +90,6 @@ h1 {
   user-select: none;
   cursor: pointer;
 
-  width: 40px;
-  height: 40px;
-
   border: 1px solid var(--dark-color);
 
   font-family: "Titan One", sans-serif;
@@ -56,6 +100,26 @@ h1 {
   background-color: var(--tertiary-color);
 }
 
+/* Tile Sizes */
+.board-tile.small {
+  width: 30px;
+  height: 30px;
+  font-size: 1.5rem;
+}
+
+.board-tile.medium {
+  width: 35px;
+  height: 35px;
+  font-size: 1.75rem;
+}
+
+.board-tile.large {
+  width: 50px;
+  height: 50px;
+  font-size: 2.15rem;
+}
+
+/* Tile States */
 .snake-body {
   background-color: var(--primary-color);
   cursor: default;
@@ -74,10 +138,7 @@ h1 {
   cursor: default;
 }
 
-#mobile-controls {
-  display: none;
-}
-
+/* Score Display */
 .score-display {
   display: flex;
   flex-direction: row;
@@ -90,6 +151,7 @@ h1 {
   font-size: 2.5rem;
 }
 
+/* Game Over Overlay */
 .hidden {
   display: none;
 }
@@ -101,15 +163,16 @@ h1 {
   justify-content: center;
 
   position: fixed;
-  top: 32.5%;
-  left: 37.5%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 
   width: 25%;
   height: 35%;
 
   padding: 1rem;
 
-  background-color: rgba(56, 102, 65, 0.65);
+  background-color: rgba(20, 33, 61, 0.85);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
 
@@ -133,29 +196,47 @@ h1 {
   filter: blur(4px);
 }
 
+/* Hide Mobile Controls by Default */
+#mobile-controls {
+  display: none;
+}
+
+/* HD Screens */
 @media (max-width: 1280px) {
   h1 {
     font-size: 2rem;
   }
 
-  .board-tile {
-    width: 30px;
-    height: 30px;
-    font-size: 1.4rem;
-  }
+  /* Board Tiles */
 
+  /* Score Display */
   .score-display p {
     font-size: 1.5rem;
   }
 }
 
+/* Medium Width Screens */
 @media (max-width: 900px) {
-  .board-tile {
-    width: 25px;
-    height: 25px;
-    font-size: 1.25rem;
+  /* Board Tiles */
+  .board-tile.small {
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
   }
 
+  .board-tile.medium {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+  }
+
+  .board-tile.large {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+  }
+
+  /* Score Display */
   .score-display {
     flex-direction: column;
     align-items: center;
@@ -167,24 +248,41 @@ h1 {
     margin: 5px 0 0 0;
   }
 
+  /* Game Over Overlay */
   .game-over-overlay {
-    top: 32.5%;
-    left: 27.5%;
-
     width: 45%;
     height: 35%;
-
-    background-color: rgba(56, 102, 65, 0.9);
   }
 }
 
+/* Mobile Screens */
 @media (max-width: 600px) {
-  .board-tile {
-    width: 20px;
-    height: 20px;
-    font-size: 1rem;
+  /* Board Tiles */
+  .board-tile.small {
+    width: 13px;
+    height: 13px;
+    font-size: 0.75rem;
   }
 
+  .board-tile.medium {
+    width: 20px;
+    height: 20px;
+    font-size: 1.15rem;
+  }
+
+  .board-tile.large {
+    width: 27px;
+    height: 27px;
+    font-size: 1.35rem;
+  }
+
+  /* Game Over Overlay */
+  .game-over-overlay {
+    width: 75%;
+    height: 35%;
+  }
+
+  /* Controls */
   #mobile-controls {
     display: flex;
     flex-direction: column;
@@ -209,14 +307,7 @@ h1 {
     background-color: var(--secondary-color);
     color: var(--light-color);
     font-family: "Titan One", sans-serif;
+    text-align: center;
     cursor: pointer;
-  }
-
-  .game-over-overlay {
-    top: 32.5%;
-    left: 12.5%;
-
-    width: 75%;
-    height: 35%;
   }
 }
