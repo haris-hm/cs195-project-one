@@ -14,21 +14,29 @@
 </head>
 
 <body>
-  <div class="menu">
+  <a href="/" class="logo">
     <h1>SnakeSweeper</h1>
+  </a>
 
-    <form id="game-settings" class="settings-container">
-      <div class="settings-row">
-        <label for="difficulty">Difficulty:</label>
-        <select name="difficulty" id="difficulty">
-          <option value="easy">Easy (10x10)</option>
-          <option value="normal" selected>Normal (16x16)</option>
-          <option value="hard">Hard (24x24)</option>
-        </select>
-      </div>
-      <button type="submit">Start Game</button>
-    </form>
-  </div>
+
+  <p class="info">
+    Move the snake around the board to collect apples. Collecting apples reveals tiles and the amounnt of apples
+    surrounding them. As more tiles get revealed, flag the tiles you think have an apple. The game ends if you collect
+    all the apples, run into yourself, or flag and try to collect an incorrect tile. Have fun!
+  </p>
+
+  <form id="game-settings" class="settings-container">
+    <div class="settings-row">
+      <label for="difficulty">Difficulty:</label>
+      <select name="difficulty" id="difficulty">
+        <option value="easy">Easy (10x10)</option>
+        <option value="normal" selected>Normal (16x16)</option>
+        <option value="hard">Hard (24x24)</option>
+      </select>
+    </div>
+
+    <button type="submit">Start Game</button>
+  </form>
 
   <script src="static/js/landingPage.js"></script>
 </body>
