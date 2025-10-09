@@ -34,7 +34,7 @@ export class WinState {
     "Oops! Looks like you flagged the wrong tile! That tile didn't have an apple."
   );
 
-  static WON_ALL_APPLES = new WinState(
+  static WIN_ALL_APPLES = new WinState(
     "Congratulations! You collected all the hidden apples! Nice Job!"
   );
 

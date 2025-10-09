@@ -1,5 +1,5 @@
 import { Board } from "./board.js";
-import { Direction, WinState } from "./utils.js";
+import { Direction, WinState, playRandomSoundEffect } from "./utils.js";
 
 /**
  * Adds keyboard and button listeners to control the snake.
@@ -72,6 +72,22 @@ function getGameDifficulty() {
   }
 }
 
+function showGameOverOverlay(title, message) {
+  const overlay = document.getElementById("game-over-overlay");
+  const overlayTitle = document.getElementById("game-over-title");
+  const overlayMessage = document.getElementById("game-over-message");
+  const boardElement = document.getElementById("board");
+
+  if (overlay && overlayTitle && overlayMessage) {
+    overlayTitle.textContent = title;
+    overlayMessage.textContent = message;
+  }
+
+  overlay.classList.remove("hidden");
+  overlay.classList.add("game-over-overlay");
+  boardElement.classList.add("board-game-over");
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const boardSize = getGameDifficulty();
   const gameBoard = new Board(boardSize);
@@ -82,7 +98,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (winState !== WinState.ONGOING) {
       clearInterval(gameLoop);
-      alert(`Game Over!\n${winState.reason}`);
+
+      if (winState === WinState.WIN_ALL_APPLES) {
+        playRandomSoundEffect("win", 2);
+      } else {
+        playRandomSoundEffect("lose", 16);
+      }
+
+      const title =
+        winState === WinState.WIN_ALL_APPLES ? "You Win!" : "Game Over";
+      showGameOverOverlay(title, winState.reason);
     }
   }, 200);
 });

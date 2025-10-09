@@ -375,6 +375,11 @@ export class Board {
     this.removeFlag(tile);
     this.startFloodReveal(tile);
     this.growSnake();
+
+    if (this.appleCount === 0) {
+      this.winState = WinState.WIN_ALL_APPLES;
+    }
+
     return true;
   }
 

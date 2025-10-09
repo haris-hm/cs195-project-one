@@ -90,6 +90,49 @@ h1 {
   font-size: 2.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
+.game-over-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 32.5%;
+  left: 37.5%;
+
+  width: 25%;
+  height: 35%;
+
+  padding: 1rem;
+
+  background-color: rgba(56, 102, 65, 0.65);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+
+  color: var(--light-color);
+
+  z-index: 1000;
+}
+
+.game-over-overlay h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.game-over-overlay p {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.board-game-over {
+  filter: blur(4px);
+}
+
 @media (max-width: 1280px) {
   h1 {
     font-size: 2rem;
@@ -110,7 +153,7 @@ h1 {
   .board-tile {
     width: 25px;
     height: 25px;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .score-display {
@@ -118,6 +161,20 @@ h1 {
     align-items: center;
     justify-content: end;
     width: auto;
+  }
+
+  .score-display p {
+    margin: 5px 0 0 0;
+  }
+
+  .game-over-overlay {
+    top: 32.5%;
+    left: 27.5%;
+
+    width: 45%;
+    height: 35%;
+
+    background-color: rgba(56, 102, 65, 0.9);
   }
 }
 
@@ -153,5 +210,13 @@ h1 {
     color: var(--light-color);
     font-family: "Titan One", sans-serif;
     cursor: pointer;
+  }
+
+  .game-over-overlay {
+    top: 32.5%;
+    left: 12.5%;
+
+    width: 75%;
+    height: 35%;
   }
 }

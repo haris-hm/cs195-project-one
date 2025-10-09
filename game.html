@@ -18,6 +18,12 @@
 <body>
   <h1>SnakeSweeper</h1>
 
+  <div id="game-over-overlay" class="hidden">
+    <h2 id="game-over-title"></h2>
+    <p id="game-over-message"></p>
+    <button id="restart-button" onclick="location.reload()">Restart Game</button>
+  </div>
+
   <div id="board"></div>
 
   <div class="score-display">
