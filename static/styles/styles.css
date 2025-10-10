@@ -211,6 +211,11 @@ button:active {
   background-color: var(--accent-color);
 }
 
+.flagged-apple:not(.snake-body):not(.recent-flag):hover {
+  background-color: var(--tertiary-color);
+  filter: saturate(60%) brightness(70%);
+}
+
 .debug-apple {
   background-color: orange;
 }

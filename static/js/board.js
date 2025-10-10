@@ -67,8 +67,11 @@ class BoardTile {
    * Places a flag on this tile and updates its state.
    */
   placeFlag() {
-    this.element.classList.add("flagged-apple");
+    this.element.classList.add("flagged-apple", "recent-flag");
     this.element.classList.remove("debug-apple");
+    setTimeout(() => {
+      this.element.classList.remove("recent-flag");
+    }, 750);
     this.flagged = true;
   }
 
@@ -76,7 +79,7 @@ class BoardTile {
    * Removes the flag from this tile and updates its state.
    */
   removeFlag() {
-    this.element.classList.remove("flagged-apple");
+    this.element.classList.remove("flagged-apple", "recent-flag");
     this.flagged = false;
   }
 
