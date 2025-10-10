@@ -27,14 +27,17 @@ h1 {
 }
 
 button {
-  font-family: "Titan One", sans-serif;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   margin: 1rem;
+
   border: none;
   border-radius: 0.5rem;
   background-color: var(--secondary-color);
+
   color: var(--light-color);
+  font-family: "Titan One", sans-serif;
+  font-size: 1.75rem;
+
   cursor: pointer;
 }
 
@@ -64,6 +67,15 @@ button:active {
   border-radius: 1rem;
 
   background-color: #e4d1a0;
+  font-size: 1.25rem;
+}
+
+.desktop-controls-instructions {
+  display: inline;
+}
+
+.mobile-controls-instructions {
+  display: none;
 }
 
 .info a {
@@ -91,7 +103,7 @@ button:active {
   align-items: center;
   justify-content: center;
 
-  width: 50%;
+  width: 60%;
 }
 
 .settings-row {
@@ -104,14 +116,14 @@ button:active {
 
 .settings-row label {
   margin-right: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .settings-container select {
-  padding: 1rem 0.5rem 1rem 0.5rem;
+  padding: 0.75rem 1rem;
 
   font-family: "Titan One", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: var(--light-color);
 
   background-color: var(--accent-secondary-color);
@@ -251,12 +263,12 @@ button:active {
 }
 
 .game-over-overlay h2 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   margin-bottom: 0.5rem;
 }
 
 .game-over-overlay p {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 0.25rem;
 }
 
@@ -294,26 +306,9 @@ button:active {
 /* HD Screens */
 @media (max-width: 1280px) {
   h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
-  /* Settings */
-  .info {
-    width: 70%;
-  }
-
-  .settings-container {
-    width: 70%;
-  }
-
-  /* Score Display */
-  .score-display p {
-    font-size: 1.5rem;
-  }
-}
-
-/* Medium Width Screens */
-@media (max-width: 900px) {
   /* Settings */
   .info {
     width: 80%;
@@ -325,9 +320,9 @@ button:active {
 
   /* Board Tiles */
   .board-tile.small {
-    width: 20px;
-    height: 20px;
-    font-size: 1rem;
+    width: 25px;
+    height: 25px;
+    font-size: 1.25rem;
   }
 
   .board-tile.medium {
@@ -340,6 +335,39 @@ button:active {
     width: 45px;
     height: 45px;
     font-size: 2rem;
+  }
+
+  /* Score Display */
+  .score-display p {
+    font-size: 1.75rem;
+  }
+
+  /* Game Over Overlay */
+  .game-over-overlay h2 {
+    font-size: 2.5rem;
+  }
+
+  .game-over-overlay p {
+    font-size: 1.5rem;
+  }
+}
+
+/* Medium Width Screens */
+@media (max-width: 900px) {
+  /* Settings */
+  .info {
+    width: 85%;
+  }
+
+  .settings-container {
+    width: 85%;
+  }
+
+  /* Board Tiles */
+  .board-tile.small {
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
   }
 
   /* Score Display */
@@ -360,15 +388,43 @@ button:active {
   }
 }
 
+@media (max-width: 830px) {
+  /* Game Settings */
+  .settings-container {
+    flex-direction: column;
+  }
+
+  .settings-container button {
+    width: 100%;
+  }
+
+  .settings-row {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
 /* Mobile Screens */
 @media (max-width: 600px) {
-  /* Game Settings */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Intro Section */
   .info {
     width: 85%;
   }
 
+  .desktop-controls-instructions {
+    display: none;
+  }
+
+  .mobile-controls-instructions {
+    display: inline;
+  }
+
+  /* Game Settings */
   .settings-container {
-    flex-direction: column;
     width: 85%;
   }
 
@@ -378,10 +434,6 @@ button:active {
 
   .settings-row label {
     margin-bottom: 0.5rem;
-  }
-
-  .settings-container button {
-    width: 100%;
   }
 
   .settings-container select {
@@ -405,6 +457,11 @@ button:active {
     width: 27px;
     height: 27px;
     font-size: 1.35rem;
+  }
+
+  /* Score Display */
+  .score-display p {
+    font-size: 1.5rem;
   }
 
   /* Game Over Overlay */

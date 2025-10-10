@@ -43,23 +43,41 @@ export class WinState {
   }
 }
 
-/**
- * Plays a random sound effect from a specified folder.
- * @param {string} soundType The name of the folder the sound is in
- * @param {number} variationAmount How many different variations of that sound are in the folder (Defaults to 3)
- * @param {number} volume The volume to play the sound at (Defaults to 0.2)
- */
-export function playRandomSoundEffect(
-  soundType,
-  variationAmount = 3,
-  volume = 0.2
-) {
-  const variationSelected = Math.floor(Math.random() * variationAmount) + 1;
-  const filePath = `static/sounds/${soundType}/${variationSelected}.ogg`;
-  const audio = new Audio(filePath);
+export class SoundRegistry {
+  static GAME_START = new SoundRegistry("game-start", 12, 0.25);
+  static WIN = new SoundRegistry("win", 2, 0.25);
+  static LOSE = new SoundRegistry("lose", 16, 0.25);
 
-  audio.volume = volume;
-  audio.play();
+  static FLAG = new SoundRegistry("flag", 4, 0.15);
+  static TURN = new SoundRegistry("turn", 4, 0.15);
+
+  static EAT = new SoundRegistry("eat", 6, 0.3);
+  static SCORE_INDICATOR = new SoundRegistry("score-indicator", 2, 0.2);
+
+  /**
+   * Constructs a SoundRegistry instance.
+   * @param {string} soundType The name of the folder the sound is in
+   * @param {number} variationAmount How many different variations of that sound are in the folder
+   * @param {number} volume The volume to play the sound at (0.0 to 1.0)
+   */
+  constructor(soundType, variationAmount, volume) {
+    this.soundType = soundType;
+    this.variationAmount = variationAmount;
+    this.volume = volume;
+  }
+
+  /**
+   * Plays a random variation of the sound effect.
+   */
+  playSound() {
+    const variationSelected =
+      Math.floor(Math.random() * this.variationAmount) + 1;
+    const filePath = `static/sounds/${this.soundType}/${variationSelected}.ogg`;
+    const audio = new Audio(filePath);
+
+    audio.volume = this.volume;
+    audio.play();
+  }
 }
 
 /**

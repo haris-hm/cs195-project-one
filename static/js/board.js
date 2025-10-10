@@ -1,7 +1,7 @@
 import {
   Direction,
   WinState,
-  playRandomSoundEffect,
+  SoundRegistry,
   ADJACENT_TILE_COORDINATES,
 } from "./utils.js";
 import { Snake } from "./snake.js";
@@ -375,9 +375,9 @@ export class Board {
     this.score++;
 
     if (this.score % 5 === 0) {
-      playRandomSoundEffect("score-indicator", 2);
+      SoundRegistry.SCORE_INDICATOR.playSound();
     } else {
-      playRandomSoundEffect("eat", 6);
+      SoundRegistry.EAT.playSound();
     }
 
     document.getElementById("apple-count").textContent = String(
@@ -453,8 +453,8 @@ export class Board {
    * @param {BoardTile} tile The tile on which to place the flag
    * @param {boolean} userClicked Whether the flag placement was initiated by a user click
    */
-  placeFlag(tile, userClicked = true) {
-    if (userClicked) playRandomSoundEffect("flag", 5, 0.05);
+  placeFlag(tile, userClicked = false) {
+    if (userClicked) SoundRegistry.FLAG.playSound();
     tile.placeFlag();
     this.flaggedTiles.set(tile.getUniqueKey(), tile);
     this.renderFlags();
@@ -466,7 +466,7 @@ export class Board {
    * @param {boolean} userClicked Whether the flag removal was initiated by a user click
    */
   removeFlag(tile, userClicked = false) {
-    if (userClicked) playRandomSoundEffect("flag", 5, 0.05);
+    if (userClicked) SoundRegistry.FLAG.playSound();
     tile.removeFlag();
     this.flaggedTiles.delete(tile.getUniqueKey());
     this.renderFlags();
@@ -482,6 +482,7 @@ export class Board {
       newDirection !== this.currentDirection.getOpposite() &&
       newDirection !== this.currentDirection
     ) {
+      SoundRegistry.TURN.playSound();
       this.currentDirection = newDirection;
       this.inputLocked = true;
     }

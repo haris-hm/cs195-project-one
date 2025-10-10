@@ -1,5 +1,5 @@
 import { Board } from "./board.js";
-import { Direction, WinState, playRandomSoundEffect } from "./utils.js";
+import { Direction, WinState, SoundRegistry } from "./utils.js";
 
 /**
  * Adds keyboard and button listeners to control the snake.
@@ -92,6 +92,7 @@ function showGameOverOverlay(title, message, applesCollectedPercent) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  SoundRegistry.GAME_START.playSound();
   const boardSize = getGameDifficulty();
   const gameBoard = new Board(boardSize);
   addKeyListeners(gameBoard);
@@ -105,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
       clearInterval(gameLoop);
 
       if (winState === WinState.WIN_ALL_APPLES) {
-        playRandomSoundEffect("win", 2);
+        SoundRegistry.WIN.playSound();
       } else {
-        playRandomSoundEffect("lose", 16);
+        SoundRegistry.LOSE.playSound();
       }
 
       const title =
