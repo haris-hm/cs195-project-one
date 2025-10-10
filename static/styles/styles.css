@@ -213,7 +213,7 @@ button:active {
 
 .flagged-apple:not(.snake-body):not(.recent-flag):hover {
   background-color: var(--tertiary-color);
-  filter: saturate(60%) brightness(70%);
+  filter: saturate(170%) brightness(55%);
 }
 
 .debug-apple {
