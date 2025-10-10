@@ -163,7 +163,8 @@ export class Board {
     this.revealedTiles = new Set();
     this.currentDirection = Direction.RIGHT;
 
-    this.appleCount = appleCount;
+    this.startingAppleCount = appleCount;
+    this.currentAppleCount = appleCount;
     this.score = 0;
 
     this.winState = WinState.ONGOING;
@@ -180,7 +181,7 @@ export class Board {
     );
 
     document.getElementById("apple-count").textContent = String(
-      this.appleCount
+      this.currentAppleCount
     );
 
     this.placeFlag(startingApple);
@@ -357,6 +358,12 @@ export class Board {
     this.revealedTiles = new Set([...this.revealedTiles, ...newlyRevealed]);
   }
 
+  /**
+   * Attempts to collect the apple on the specified tile.
+   * Updates the game state accordingly.
+   * @param {BoardTile} tile The tile that the snake is attempting to eat
+   * @returns {boolean} Whether the attempt was successful
+   */
   eatApple(tile) {
     if (!tile.hasApple) {
       this.winState = WinState.LOST_FLAG_MISMATCH;
@@ -364,7 +371,7 @@ export class Board {
     }
 
     tile.removeApple();
-    this.appleCount--;
+    this.currentAppleCount--;
     this.score++;
 
     if (this.score % 5 === 0) {
@@ -374,7 +381,7 @@ export class Board {
     }
 
     document.getElementById("apple-count").textContent = String(
-      this.appleCount
+      this.currentAppleCount
     );
     document.getElementById("score").textContent = String(this.score);
 
@@ -382,7 +389,7 @@ export class Board {
     this.startFloodReveal(tile);
     this.growSnake();
 
-    if (this.appleCount === 0) {
+    if (this.currentAppleCount === 0) {
       this.winState = WinState.WIN_ALL_APPLES;
     }
 
@@ -447,7 +454,7 @@ export class Board {
    * @param {boolean} userClicked Whether the flag placement was initiated by a user click
    */
   placeFlag(tile, userClicked = true) {
-    if (userClicked) playRandomSoundEffect("flag", 5);
+    if (userClicked) playRandomSoundEffect("flag", 5, 0.05);
     tile.placeFlag();
     this.flaggedTiles.set(tile.getUniqueKey(), tile);
     this.renderFlags();
@@ -459,7 +466,7 @@ export class Board {
    * @param {boolean} userClicked Whether the flag removal was initiated by a user click
    */
   removeFlag(tile, userClicked = false) {
-    if (userClicked) playRandomSoundEffect("flag", 5);
+    if (userClicked) playRandomSoundEffect("flag", 5, 0.05);
     tile.removeFlag();
     this.flaggedTiles.delete(tile.getUniqueKey());
     this.renderFlags();
@@ -508,11 +515,18 @@ export class Board {
     this.renderSnake();
   }
 
+  /**
+   * Retrieves the current game state including win state, score, and remaining apples.
+   * @returns {{winState: WinState, score: number, totalApples: number}} The current game state including win state, score, and remaining apples
+   * @returns {WinState} winState: The current win state of the game
+   * @returns {number} score: The current score of the player
+   * @returns {number} totalApples: The number of apples remaining on the board
+   */
   getCurrentGameState() {
     return {
       winState: this.winState,
       score: this.score,
-      remainingApples: this.appleCount,
+      totalApples: this.startingAppleCount,
     };
   }
 

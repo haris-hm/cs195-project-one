@@ -83,9 +83,7 @@ function showGameOverOverlay(title, message, applesCollectedPercent) {
   if (overlay && overlayTitle && overlayMessage && applesCollectedPercentage) {
     overlayTitle.textContent = title;
     overlayMessage.textContent = message;
-    applesCollectedPercentage.textContent = `Apples Collected: ${
-      applesCollectedPercent * 100
-    }%`;
+    applesCollectedPercentage.textContent = `Apples Collected: ${applesCollectedPercent}%`;
   }
 
   overlay.classList.remove("hidden");
@@ -99,8 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
   addKeyListeners(gameBoard);
 
   const gameLoop = setInterval(() => {
-    const { winState, score, remainingApples } = gameBoard.tick();
-    const applesCollectedPercent = (score / remainingApples).toFixed(2);
+    const { winState, score, totalApples } = gameBoard.tick();
+    const applesCollectedPercent = (score / totalApples) * 100;
+    const roundedPercent = applesCollectedPercent.toFixed(2);
 
     if (winState !== WinState.ONGOING) {
       clearInterval(gameLoop);
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const title =
         winState === WinState.WIN_ALL_APPLES ? "You Win!" : "Game Over";
-      showGameOverOverlay(title, winState.reason, applesCollectedPercent);
+      showGameOverOverlay(title, winState.reason, roundedPercent);
     }
   }, 200);
 });

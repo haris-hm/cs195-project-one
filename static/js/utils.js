@@ -43,11 +43,22 @@ export class WinState {
   }
 }
 
-export function playRandomSoundEffect(soundType, variationAmount = 3) {
+/**
+ * Plays a random sound effect from a specified folder.
+ * @param {string} soundType The name of the folder the sound is in
+ * @param {number} variationAmount How many different variations of that sound are in the folder (Defaults to 3)
+ * @param {number} volume The volume to play the sound at (Defaults to 0.2)
+ */
+export function playRandomSoundEffect(
+  soundType,
+  variationAmount = 3,
+  volume = 0.2
+) {
   const variationSelected = Math.floor(Math.random() * variationAmount) + 1;
   const filePath = `static/sounds/${soundType}/${variationSelected}.ogg`;
   const audio = new Audio(filePath);
-  audio.volume = 0.2;
+
+  audio.volume = volume;
   audio.play();
 }
 
