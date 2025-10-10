@@ -196,6 +196,11 @@ button:active {
   font-size: 2.15rem;
 }
 
+.board-tile:not(.revealed-tile):not(.snake-body):not(.flagged-apple):hover {
+  background-color: var(--accent-color);
+  filter: saturate(40%) brightness(160%);
+}
+
 /* Tile States */
 .snake-body {
   background-color: var(--primary-color);
